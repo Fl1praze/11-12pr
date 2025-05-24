@@ -1,6 +1,6 @@
 from app.dao.base import BaseDAO
-from app.session.models import Session
+from app.halls.models import Hall
 
 
-class SessionDAO(BaseDAO):
-    model = Session
+class HallDAO(BaseDAO):
+    model = Hall

@@ -1,11 +1,11 @@
-from fastapi import APIRouter, HTTPException,Response,Depends
+from fastapi import APIRouter,Response,Depends
 
 from app.users.auth import get_password_hash, verify_password, create_access_token
 from app.users.dao import UsersDAO
 from app.users.schemas import SUserAuth
 from app.users.models import Users
 from app.users.dependencies import get_current_user
-router = APIRouter(prefix='/auth',tags =['Auth & Пользователи'])
+router = APIRouter(prefix='/auth',tags =['Auth & Users 👤'])
 
 from exeptions import *
 

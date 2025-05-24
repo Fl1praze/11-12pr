@@ -1,4 +1,3 @@
-
 import sys
 from logging.config import fileConfig
 from os.path import dirname,abspath
@@ -11,8 +10,9 @@ from app.database import Base
 
 from app.users.models import Users
 from app.bookings.models import Booking
-from app.session.models import Session
+from app.halls.models import Hall
 from app.movie.models import Movie
+
 
 
 
