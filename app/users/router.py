@@ -29,11 +29,12 @@ async def login_user(response: Response,user_data:SUserAuth):
             raise PasswordNotCorrectException
     access_token =  create_access_token({"sub":str(user.id)})
     response.set_cookie('booking_access_token',access_token,httponly=True)
-    return access_token
+    return {'message':'user login success'}
 
 @router.post('/logout')
 async def logout_user(response:Response):
     response.delete_cookie('booking_access_token')
+    return {'message':'user logout success'}
 
 @router.get('/me')
 async def read_user_me(current_user:Users =Depends(get_current_user)):

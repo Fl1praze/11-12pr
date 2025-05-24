@@ -1,6 +1,4 @@
 from fastapi import APIRouter, HTTPException, Depends, Path
-from sqlalchemy.ext.asyncio import AsyncSession
-from app.database import async_session_maker
 from app.bookings.schemas import SBookingCreate, SBooking, SMovieInfo, SAvailableSeats, SUserBooking
 from app.bookings.dao import BookingDAO
 from app.halls.dao import HallDAO
@@ -15,10 +13,7 @@ from enum import Enum
 router = APIRouter(prefix='/bookings', tags=['Бронирование 🎫'])
 
 
-async def get_available_movie_titles() -> List[str]:
-    movies = await MovieDAO.find_all()
-    current_time = datetime.now(pytz.UTC)
-    return [movie.title for movie in movies if movie.start_time > current_time]
+
 
 @router.post("/", response_model=SBooking)
 async def create_booking(booking: SBookingCreate, current_user: Users = Depends(get_current_user)):
@@ -70,7 +65,7 @@ async def create_booking(booking: SBookingCreate, current_user: Users = Depends(
         
         # Создаем бронирование
         await BookingDAO.add(**booking_data)
-        
+
         # Получаем созданное бронирование
         created_booking = await BookingDAO.find_one_or_none(
             user_id=current_user.id,
